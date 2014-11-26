@@ -1,0 +1,17 @@
+{
+    "contents" : "data(Boston, package = \"MASS\")\nctrl <- trainControl(method = \"repeatedcv\", number = 10)\nset.seed(101)\ncart_train <- train(x = subset(Boston, select = -medv),\n                   y = Boston$medv,\n                   method = \"rpart\",\n                   control = list(minsplit = 70, minbucket = 30),\n                   trControl = ctrl,\n                   tuneLength = 30)\nboston_cart <- rpart(medv ~ ., data = Boston, cp = 0.005)\nprp(boston_cart, extra = 101, nn = TRUE, nn.col = \"red3\")\nBoston2 <- nodeFactor(boston_cart)\n\nlibrary(earth)\nboston_earth <- earth(medv ~ ., data = Boston, degree = 2, linpreds = T)\nboston2_earth <- earth(medv ~ ., data = Boston2, degree = 2, linpreds = T)\nboston_earth$grsq\nboston2_earth$grsq\n",
+    "created" : 1417017927547.000,
+    "dirty" : true,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "1544865954",
+    "id" : "3D236E7B",
+    "lastKnownWriteTime" : 425201762336,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

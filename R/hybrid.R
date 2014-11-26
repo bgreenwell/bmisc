@@ -1,65 +1,64 @@
-## CART hybrid example
-
-
-## Assign observations to terminal node (nice hack from stackoverflow)
-assignNode <- function(object, newdata,
-#                        type = c("vector", "prob", "class", "matrix"),
-                       na.action = na.pass, ...) {
+##' Terminal Node Assignment
+##' 
+##' Assign each observation of the original data (or newdata) to a terminal 
+##' node. Based on a nice hack from stackoverflow.
+##' 
+##' @param object An object that inherits from class \code{rpart}.
+##' @param newdata An optional data frame in which to look for variables with 
+##'   which to predict. If omitted, the fitted values are used.
+##' @paraam na.action a function which indicates what should happen when the 
+##'   data contain \code{NA}s. 
+##' @param ... Additional optional arguments. At present, no optional arguments 
+##'   are used.
+##' 
+##' @references
+##' https://www.salford-systems.com/resources/whitepapers
+assignNode <- function(object, newdata, na.action = na.pass, ...) {
   data <- if (missing(newdata)) eval(object$call$data) else newdata
   object$frame$yval <- as.numeric(rownames(object$frame))
   unname(predict(object, newdata = data, type = "vector", 
                  na.action = na.action, ...))
 }
-# fit <- rpart(Kyphosis ~ Age + Number + Start, data = kyphosis)
-# prp(fit, nn = TRUE, nn.col = "red3")
-# assignNode(fit)
-# unique(fit$where)
 
-################################################################################
-##
-## Create categorical variable from terminal nodes
-##
-################################################################################
-nodeFactor <- function(object, newdata, important = FALSE) {
-  data <- if (missing(newdata)) eval(object$call$data) else newdata
+##' Create CART-like Dummy Variables
+##' 
+##' Returns the supplied data with an additional factor variable describing
+##' node assignment.
+##' 
+##' @param object An object that inherits from class \code{rpart}.
+##' @param newdata An optional data frame in which to look for variables with 
+##'   which to predict. If omitted, the fitted values are used.
+##' @paraam important Logical indicating whether to include only important 
+##'   variables. Default is \code{FALSE}.
+##' @param ... Additional optional arguments. At present, no optional arguments 
+##'   are used.
+##' 
+##' @details
+##' 
+##' @example
+##' ## Boston housing example with 10-fold cross-validation
+##' library(rpart)
+##' library(rpart.plot)
+##' data(Boston, package = "MASS")
+##' boston_cart <- rpart(medv ~ ., data = Boston, cp = 0.005)
+##' prp(boston_cart, extra = 101, nn = TRUE, nn.col = "red3")
+##' Boston2 <- nodeFactor(boston_cart)  # compare to previous plot
+##' 
+##' ## CART/MARS hybrid model for Boston housing data
+##' library(earth)
+##' boston_earth <- earth(medv ~ ., data = Boston, degree = 2, linpreds = T)
+##' boston2_earth <- earth(medv ~ ., data = Boston2, degree = 2, linpreds = T)
+##' boston_earth$grsq
+##' boston2_earth$grsq
+##' 
+##' @references
+##' https://www.salford-systems.com/resources/whitepapers
+nodeFactor <- function(object, newdata, important = FALSE, ...) {
+  .data <- if (missing(newdata)) eval(object$call$data) else newdata
   if (important) {  # only keep "important" variables
-    data <- data[, c(names(object$variable.importance), 
-                     all.vars(formula(object)[[2]]))]
+    .data <- .data[, c(names(object$variable.importance), 
+                       all.vars(formula(object)[[2]]))]
   }
 #     data$node <- as.factor(object$where)  # terminal node indicators
-  data$node <- as.factor(assignNode(object, newdata = data))
-  data
+  within(.data, { node <- as.factor(assignNode(object, newdata = .data)) })
 }
-
-# ## Spam example
-# library(caret)
-# data(spam, package = "kernlab")
-# set.seed(101)
-# trainID <- createDataPartition(spam$type, p = 0.7, list = FALSE, times = 1)
-# trainData <- spam[trainID, ]
-# testData <- spam[-trainID, ]
-# cartTrain <- rpart(type ~ ., data = train)
-# trainData2 <- nodeFactor(rpart(type ~ ., data = trainData))
-# testData2 <- nodeFactor(rpart(type ~ ., data = testData))
-
-# ## Boston housing example with 10-fold cross-validation
-# data(Boston, package = "MASS")
-# ctrl <- trainControl(method = "repeatedcv", number = 10)
-# set.seed(101)
-# cartTrain<- train(x = subset(Boston, select = -medv),
-#                   y = Boston$medv,
-#                   method = "rpart",
-#                   control = list(minsplit = 70, minbucket = 30),
-#                   trControl = ctrl,
-#                   tuneLength = 30)
-# cartFit <- cartTrain$finalModel
-# prp(cartFit, extra = 101, nn = TRUE, nn.col = "red3")
-# Boston2 <- nodeFactor(cartFit)
-# names(Boston2)[which(names(Boston2) == ".outcome")] <- "medv"
-# 
-# ## CART/MARS hybrid model for Boston housing data
-# library(earth)
-# earthFit <- earth(medv ~ ., data = Boston, degree = 2, linpreds = FALSE)
-# earthFit2 <- earth(medv ~ ., data = Boston2, degree = 2, linpreds = FALSE)
-# earthFit$grsq
-# earthFit2$grsq
