@@ -54,9 +54,39 @@ mat.list <- function(x, rows = TRUE) {
 ##' Resize a given matrix
 ##' 
 ##' Returns a new matrix of dimension nrows by ncols using the elements of x.
-resize <- function(x, nrows = nrow(x), ncols = ncol(x), byrow = TRUE) {
-  if (nrows * ncols != length(x)) stop("dimension mismatch.", call. = FALSE)
-  if (!inherits(x, "matrix")) stop("x must be of class 'matrix'.", call. = FALSE)
-  attr(x, "dim") <- c(nrows, ncols)
-  if (byrow) t(x) else x
+resize <- function(x, nrows, ncols, byrow = TRUE) {
+  
+  ## Check dimensions (if supplied)
+  if (missing(nrows) && missing(ncols)) {
+    nrows <- nrow(x)
+    ncols <- ncol(x)
+  }
+  if (missing(nrows) && !missing(ncols)) {
+    if (length(x) %% ncols != 0) {
+      stop("dimension mismatch.", call. = FALSE)
+    }
+    nrows <- length(x) / ncols
+  }
+  if (!missing(nrows) && missing(ncols)) {
+    if (length(x) %% nrows != 0) {
+      stop("dimension mismatch.", call. = FALSE)
+    }
+    ncols <- length(x) / nrows
+  }
+  if (nrows * ncols != length(x)) {
+    stop("dimension mismatch.", call. = FALSE)
+  }
+  if (!inherits(x, "matrix")) {
+    stop("x must be of class 'matrix'.", call. = FALSE)
+  }
+
+  ## Return matrix with new dimensions
+  if (byrow) {
+    attr(x, "dim") <- c(ncols, nrows) 
+    t(x)
+  } else {
+    attr(x, "dim") <- c(nrows, ncols) 
+    x
+  }
+  
 }
