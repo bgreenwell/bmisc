@@ -61,3 +61,14 @@ Importance: lstat, node15, node14, node16, node21, node18, node12, node17, node1
 Number of terms at each degree of interaction: 1 17 6
 GCV 9.894404    RSS 3915.843    GRSq 0.8832577    RSq 0.9083291
 ```
+
+### Easily set new seed values for simulation experiments
+```S
+> set.seed(str2int("Some random numbers"))
+> rnorm(3)  # should give: 1.7500983 -0.1093635 -0.9958618
+[1]  1.7500983 -0.1093635 -0.9958618
+> 
+> set.seed(str2int("Some more random numbers")) 
+> rnorm(3)  # should give: 0.007765185 -1.138536203  0.091017129
+[1]  0.007765185 -1.138536203  0.091017129
+```
