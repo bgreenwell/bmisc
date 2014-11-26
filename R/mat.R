@@ -4,7 +4,7 @@
 ##' 
 ##' @examples
 ##' ## Using character vectors
-##' mat('1, 2, 3; 4, 5, 6')  # similar to numpy.mat
+##' mat('1, 2, 3; 4, 5, 6')  # similar to numpy.mat from Python extension NumPy
 ##' (m <- mat(paste('exp(', 1:9, ')')))
 ##' resize(m, 3, 3)
 ##' resize(m, 3, 3, byrow = FALSE)

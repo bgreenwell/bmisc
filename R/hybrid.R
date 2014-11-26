@@ -36,7 +36,7 @@ assignNode <- function(object, newdata, na.action = na.pass, ...) {
 ##' @details
 ##' 
 ##' @example
-##' ## Boston housing example with 10-fold cross-validation
+##' ## Boston housing data
 ##' library(rpart)
 ##' library(rpart.plot)
 ##' data(Boston, package = "MASS")
