@@ -1,0 +1,16 @@
+{
+    "contents" : "##' Terminal Node Assignment\n##' \n##' Assign each observation of the original data (or newdata) to a terminal \n##' node. Based on a nice hack from stackoverflow.\n##' \n##' @param object An object that inherits from class \\code{rpart}.\n##' @param newdata An optional data frame in which to look for variables with \n##'   which to predict. If omitted, the fitted values are used.\n##' @param na.action a function which indicates what should happen when the \n##'   data contain \\code{NA}s. \n##' @param ... Additional optional arguments. At present, no optional arguments \n##'   are used.\n##' \n##' @references\n##' https://www.salford-systems.com/resources/whitepapers\nassignNode <- function(object, newdata, na.action = na.pass, ...) {\n  data <- if (missing(newdata)) eval(object$call$data) else newdata\n  object$frame$yval <- as.numeric(rownames(object$frame))\n  unname(predict(object, newdata = data, type = \"vector\", \n                 na.action = na.action, ...))\n}\n\n##' Create CART-like Dummy Variables\n##' \n##' Returns the supplied data with an additional factor variable describing\n##' node assignment.\n##' \n##' @param object An object that inherits from class \\code{rpart}.\n##' @param newdata An optional data frame in which to look for variables with \n##'   which to predict. If omitted, the fitted values are used.\n##' @param important Logical indicating whether to include only important \n##'   variables. Default is \\code{FALSE}.\n##' @param ... Additional optional arguments. At present, no optional arguments \n##'   are used.\n##' \n##' @example\n##' ## Boston housing data\n##' library(rpart)\n##' library(rpart.plot)\n##' data(Boston, package = \"MASS\")\n##' boston_cart <- rpart(medv ~ ., data = Boston, cp = 0.005)\n##' prp(boston_cart, extra = 101, nn = TRUE, nn.col = \"red3\")\n##' Boston2 <- nodeFactor(boston_cart)  # compare to previous plot\n##' \n##' ## CART/MARS hybrid model for Boston housing data\n##' library(earth)\n##' \n##' ## Original model\n##' earth(medv ~ ., data = Boston, degree = 2, linpreds = T)\n##' \n##' ## Hybrid model\n##' earth(medv ~ ., data = Boston2, degree = 2, linpreds = T)\n##' \n##' @references\n##' https://www.salford-systems.com/resources/whitepapers\nnodeFactor <- function(object, newdata, important = FALSE, ...) {\n  .data <- if (missing(newdata)) eval(object$call$data) else newdata\n  if (important) {  # only keep \"important\" variables\n    .data <- .data[, c(names(object$variable.importance), \n                       all.vars(formula(object)[[2]]))]\n  }\n#     data$node <- as.factor(object$where)  # terminal node indicators\n  within(.data, { node <- as.factor(assignNode(object, newdata = .data)) })\n}\n",
+    "created" : 1417021674042.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1369773152",
+    "id" : "C1EA873A",
+    "lastKnownWriteTime" : 1417021844,
+    "path" : "~/Desktop/Dropbox/devel/misc/R/hybrid.R",
+    "project_path" : "R/hybrid.R",
+    "properties" : {
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

@@ -10,15 +10,15 @@ across.
 ### Create matrices using NumPy-like syntax
 
 ```S
-> mat('1, 2, 3; 4, 5, 6; 7, 8, 9')
-     [,1] [,2] [,3]
-[1,]    1    2    3
-[2,]    4    5    6
-[3,]    7    8    9
+> mat('1, 2, 3; 4, 5, 6; 7, 8, pi')
+     [,1] [,2]     [,3]
+[1,]    1    2 3.000000
+[2,]    4    5 6.000000
+[3,]    7    8 3.141593
 ```
 
 ```S
-> (m <- mat(paste('exp(', 1:9, ')')))
+> (m <- mat(paste('exp(', 1:8, ')')))
              [,1]
  [1,]    2.718282
  [2,]    7.389056
@@ -28,39 +28,38 @@ across.
  [6,]  403.428793
  [7,] 1096.633158
  [8,] 2980.957987
- [9,] 8103.083928
 >
-> resize(m, 3, 3)
-            [,1]        [,2]       [,3]
-[1,]    2.718282    7.389056   20.08554
-[2,]   54.598150  148.413159  403.42879
-[3,] 1096.633158 2980.957987 8103.08393
+> resize(m, 2)
+           [,1]       [,2]       [,3]       [,4]
+[1,]   2.718282   7.389056   20.08554   54.59815
+[2,] 148.413159 403.428793 1096.63316 2980.95799
 >
-> resize(m, 3, 3, byrow = FALSE)
-          [,1]      [,2]     [,3]
-[1,]  2.718282  54.59815 1096.633
-[2,]  7.389056 148.41316 2980.958
-[3,] 20.085537 403.42879 8103.084
+> resize(m, 4, 2, byrow = F)
+          [,1]      [,2]
+[1,]  2.718282  148.4132
+[2,]  7.389056  403.4288
+[3,] 20.085537 1096.6332
+[4,] 54.598150 2980.9580
 ```
 
-### Easily create hybrid CART-like models
+### Create terminal node dummy variables for hybrid models
 ```S
-> ## Boston housing data
-> library(rpart)
-> library(rpart.plot)
-> data(Boston, package = "MASS")
-> boston_cart <- rpart(medv ~ ., data = Boston, cp = 0.005)
-> Boston2 <- nodeFactor(boston_cart)  
+> library(rpart)  # classification and regression trees (CART)
+> library(earth)  # multivariate adaptive regression splines (MARS)
+> data(Boston, package = "MASS")  # Boston housing data
 > 
-> ## CART/MARS hybrid model for Boston housing data
-> library(earth)
+> ## CART model
+> boston_cart <- rpart(medv ~ ., data = Boston, cp = 0.005)
+> Boston2 <- nodeFactor(boston_cart)  # add CART dummy variable
 >
+> ## MARS model
 > earth(medv ~ ., data = Boston, degree = 2, linpreds = T)
 Selected 14 of 14 terms, and 9 of 13 predictors 21 linear predictors
 Importance: lstat, rm, ptratio, rad, tax, dis, crim, nox, chas, zn-unused, ...
 Number of terms at each degree of interaction: 1 5 8
 GCV 15.14321    RSS 6681.454    GRSq 0.821328    RSq 0.8435854
 >
+> ## CART/MARS hybrid model
 > earth(medv ~ ., data = Boston2, degree = 2, linpreds = T)
 Selected 24 of 25 terms, and 22 of 24 predictors 29 linear predictors
 Importance: lstat, node15, node14, node16, node21, node18, node12, node17, node19, ...
@@ -70,11 +69,11 @@ GCV 9.894404    RSS 3915.843    GRSq 0.8832577    RSq 0.9083291
 
 ### Easily set new seed values for simulation experiments
 ```S
-> set.seed(str2int("Some random numbers"))
+> setSeed("Some random numbers")
 > rnorm(3)  # should give: 1.7500983 -0.1093635 -0.9958618
 [1]  1.7500983 -0.1093635 -0.9958618
 > 
-> set.seed(str2int("Some more random numbers")) 
+> setSeed("Some more random numbers")
 > rnorm(3)  # should give: 0.007765185 -1.138536203  0.091017129
 [1]  0.007765185 -1.138536203  0.091017129
 ```

@@ -6,7 +6,7 @@
 ##' 
 ##' @return An integer (not necessarily unique).
 ##' 
-##' @examples
+##' @example
 ##' ## Should all produce the same integer (currently results in 124)
 ##' str2int("Hello World")
 ##' str2int("hello world")
@@ -40,4 +40,19 @@ str2int <- function(string) {
   nums <- all_numbers[id]
   seed <- sum(nums)
   min(c(seed, .Machine$integer.max))
+}
+
+##' Specify Seeds
+##'
+##' Specify seeds using character vector.
+##' 
+##' @param string A character vector.
+##' 
+##' @return Returns NULL, invisibly.
+##' 
+##' @example
+##' setSeed("Some random numbers")
+##' rnorm(3)  # should give: 1.7500983 -0.1093635 -0.9958618
+setSeed <- function(string) {
+  set.seed(str2int(string))
 }

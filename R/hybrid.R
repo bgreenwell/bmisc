@@ -6,7 +6,7 @@
 ##' @param object An object that inherits from class \code{rpart}.
 ##' @param newdata An optional data frame in which to look for variables with 
 ##'   which to predict. If omitted, the fitted values are used.
-##' @paraam na.action a function which indicates what should happen when the 
+##' @param na.action a function which indicates what should happen when the 
 ##'   data contain \code{NA}s. 
 ##' @param ... Additional optional arguments. At present, no optional arguments 
 ##'   are used.
@@ -28,12 +28,10 @@ assignNode <- function(object, newdata, na.action = na.pass, ...) {
 ##' @param object An object that inherits from class \code{rpart}.
 ##' @param newdata An optional data frame in which to look for variables with 
 ##'   which to predict. If omitted, the fitted values are used.
-##' @paraam important Logical indicating whether to include only important 
+##' @param important Logical indicating whether to include only important 
 ##'   variables. Default is \code{FALSE}.
 ##' @param ... Additional optional arguments. At present, no optional arguments 
 ##'   are used.
-##' 
-##' @details
 ##' 
 ##' @example
 ##' ## Boston housing data
@@ -46,10 +44,12 @@ assignNode <- function(object, newdata, na.action = na.pass, ...) {
 ##' 
 ##' ## CART/MARS hybrid model for Boston housing data
 ##' library(earth)
-##' boston_earth <- earth(medv ~ ., data = Boston, degree = 2, linpreds = T)
-##' boston2_earth <- earth(medv ~ ., data = Boston2, degree = 2, linpreds = T)
-##' boston_earth$grsq
-##' boston2_earth$grsq
+##' 
+##' ## Original model
+##' earth(medv ~ ., data = Boston, degree = 2, linpreds = T)
+##' 
+##' ## Hybrid model
+##' earth(medv ~ ., data = Boston2, degree = 2, linpreds = T)
 ##' 
 ##' @references
 ##' https://www.salford-systems.com/resources/whitepapers
