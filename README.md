@@ -7,7 +7,7 @@ created purely for practice or enjoyment. If you have suggestions for further
 improvements, please submit them. Also, please report any bugs that you come 
 across.
 
-### Create matrices using NumPy-like syntax
+### Create matrices using NumPy style syntax
 
 ```S
 > mat('1, 2, 3; 4, 5, 6; 7, 8, pi')
