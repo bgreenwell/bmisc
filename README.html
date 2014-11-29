@@ -112,7 +112,7 @@ GCV 9.894404    RSS 3915.843    GRSq 0.8832577    RSq 0.9083291</code></pre>
 </div>
 <div id="easily-set-new-seed-values-for-simulation-experiments" class="section level3">
 <h3>Easily set new seed values for simulation experiments</h3>
-<p>I commonly find myself needing to set new seed values for small simulation experiments. While this is as easy as <code>set.seed(123)</code>, I find it much easier to think of words or sentences instead (e.g., <code>setSeed('LLN simulation')</code>).</p>
+<p>I commonly find myself needing to set new seed values for small simulation experiments. While this is as easy as <code>set.seed(123)</code>, I find it much easier to think of words or sentences instead of integers. For example, in demonstrating the law of large numbers (LLN), we would have to generate some random numbers. For reproducibility, we can specify the seed via an integer as shown above. However, a descriptive string may be more useful: <code>setSeed('LLN simulation')</code>.</p>
 <pre class="S"><code>&gt; setSeed(&quot;Some random numbers&quot;)
 &gt; rnorm(3)  # should give: 1.7500983 -0.1093635 -0.9958618
 [1]  1.7500983 -0.1093635 -0.9958618

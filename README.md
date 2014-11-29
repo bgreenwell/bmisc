@@ -69,7 +69,7 @@ GCV 9.894404    RSS 3915.843    GRSq 0.8832577    RSq 0.9083291
 ```
 
 ### Easily set new seed values for simulation experiments
-I commonly find myself needing to set new seed values for small simulation experiments. While this is as easy as ```set.seed(123)```, I find it much easier to think of words or sentences instead. For example, in demoonstrating the law of large numbers (LLN), we would have to generate some random numbers. For reproducibility, we specify a seed such as above. However, I find it much easier to use a descriptive string: ```setSeed('LLN simulation')```.
+I commonly find myself needing to set new seed values for small simulation experiments. While this is as easy as ```set.seed(123)```, I find it somewhat annoying to think of a unique integer each time I want to specify a new seed value. For example, in demonstrating the law of large numbers (LLN), we would have to generate some random numbers. For reproducibility, we can specify the seed via an integer as shown above. However, a descriptive string may be more useful: ```setSeed('LLN simulation')```.
 ```S
 > setSeed("Some random numbers")
 > rnorm(3)  # should give: 1.7500983 -0.1093635 -0.9958618

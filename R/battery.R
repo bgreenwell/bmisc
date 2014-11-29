@@ -57,7 +57,8 @@ priorGrid <- function(n = 2, .min = 0.05, .max = 0.95, .step = 0.05) {
   
 }
 
-batteryPriors(rpart_obj, n = 2, .min = 0.05, .max = 0.95, .step = 0.05) {
+batteryPriors <- function(rpart_obj, n = 2, .min = 0.05, .max = 0.95, 
+                          .step = 0.05) {
   
   ## Extract data and variable names
   .data <- if (missing(newdata)) eval(object$call$data) else newdata
@@ -73,12 +74,12 @@ batteryPriors(rpart_obj, n = 2, .min = 0.05, .max = 0.95, .step = 0.05) {
                           .max = prior.max, .step = prior.step)
   
   ## Allocate space
-  fm_list <- vector("list", length = nrow(priors))  # to store trees
-  acc <- matrix(0, nrow = nrow(priors), ncol = nlevels(yvals)+1)  
+  fm_list <- vector("list", length = nrow(prior_grid))  # to store trees
+  acc <- matrix(0, nrow = nrow(prior_grid), ncol = nlevels(yvals)+1)  
   
   ## Create a model for each set of priors
-  for (i in seq_len(nrow(priors))) {
-    fm_list[[i]] <- update(object, parms = list(prior = priors[i, ]))
+  for (i in seq_len(nrow(prior_grid))) {
+    fm_list[[i]] <- update(object, parms = list(prior = prior_grid[i, ]))
     pred_vals <- predict(fm_list[[i]], newdata = data, type = "class")
     conf_tab <- table(pred_vals, yvals)
     acc[i, nlevels(yvals)+1] <- sum(diag(conf_tab)) / length(yvals)
@@ -88,7 +89,7 @@ batteryPriors(rpart_obj, n = 2, .min = 0.05, .max = 0.95, .step = 0.05) {
   ## Return results
   names(priors) <- paste("prior", levels(y), sep = ".")
   colnames(acc) <- c(paste("accuracy", levels(y), sep = "."), "accuracy")
-  return(cbind(priors, acc))
+  return(cbind(prior_grid, acc))
   
 }
 
