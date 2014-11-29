@@ -1,3 +1,97 @@
+##' List of battery methods
+##' 
+##' Prints a list of the available battery methods.
+##' 
+##' @rdname battery
+##' @export
+##' 
+##' @return A list with two components:
+##' \itemize{
+##'   \item \code{rpart} 
+##'   \item \code{randomForest} 
+##' }
+listBatteryMethods <- function() {
+  list("rpart" = c("priors", "shaving", "target"),
+       "randomForest" = c("classwt", "shaving", "target", "mtry", "cutoff"))
+}
+
+##' Model performance measures
+##' 
+RMSE <- function (pred, obs, na.rm = FALSE) {
+  sqrt(mean((pred - obs)^2, na.rm = na.rm))
+}
+
+R2 <- function(pred, obs, formula = "corr", na.rm = FALSE) {
+  n <- sum(complete.cases(pred))  # number of complete cases
+  switch(formula, 
+         corr = cor(obs, pred, 
+                    use = ifelse(na.rm, "complete.obs", "everything"))^2, 
+         traditional = 1 - (sum((obs - pred)^2, na.rm = na.rm)/
+                              ((n - 1) * var(obs, na.rm = na.rm)))
+  )
+}
+
+##' Make a grid of prior values
+##' 
+##' Creates a grid of possible prior values.
+##' 
+##' @keywords internal
+priorGrid <- function(n = 2, .min = 0.05, .max = 0.95, .step = 0.05) {
+  
+  ## Allocate space
+  prior_list <- vector("list", length = n-1)
+  
+  ## Sequence of possible prior values
+  prior_vals <- seq(from = .min, to = .max, by = .step)
+  
+  ## Create the grid of prior values
+  for (i in seq_len(n - 1)) {
+    prior_list[[i]] <- prior_vals
+  }
+  prior_grid <- expand.grid(prior_list)
+  prior_grid$last <- apply(prior_grid, 1, function(x) 1 - sum(x))
+  keep <- which(prior_grid$last >= .min & prior_grid$last <= .max)
+  prior_grid <- as.data.frame(prior_grid[keep, ])
+  #   stopifnot(all(apply(prior_grid, 1, sum) == 1))
+  setNames(prior_grid, paste("prior", seq_len(n), sep = ""))
+  
+}
+
+batteryPriors(rpart_obj, n = 2, .min = 0.05, .max = 0.95, .step = 0.05) {
+  
+  ## Extract data and variable names
+  .data <- if (missing(newdata)) eval(object$call$data) else newdata
+  xname <- intersect(all.vars(formula(object)[[3]]), colnames(.data)) 
+  yname <- all.vars(formula(object)[[2]])
+  
+  ## Response values
+  yvals <- data[, yname]
+  if (!is.factor(yvals)) yvals <- as.factor(yvals)
+  
+  ## Grid of prior values
+  prior_grid <- priorGrid(n = length(unique(yvals)), .min = prior.min, 
+                          .max = prior.max, .step = prior.step)
+  
+  ## Allocate space
+  fm_list <- vector("list", length = nrow(priors))  # to store trees
+  acc <- matrix(0, nrow = nrow(priors), ncol = nlevels(yvals)+1)  
+  
+  ## Create a model for each set of priors
+  for (i in seq_len(nrow(priors))) {
+    fm_list[[i]] <- update(object, parms = list(prior = priors[i, ]))
+    pred_vals <- predict(fm_list[[i]], newdata = data, type = "class")
+    conf_tab <- table(pred_vals, yvals)
+    acc[i, nlevels(yvals)+1] <- sum(diag(conf_tab)) / length(yvals)
+    ## FIXME: need to add individual class accuracy
+  }
+  
+  ## Return results
+  names(priors) <- paste("prior", levels(y), sep = ".")
+  colnames(acc) <- c(paste("accuracy", levels(y), sep = "."), "accuracy")
+  return(cbind(priors, acc))
+  
+}
+
 ##' Batteries of Runs
 ##' 
 ##' Tree-based algorithms are characterized by a substantial number of control 
@@ -26,25 +120,13 @@
 ##' 
 ##' @examples
 ##' ## Spam example 
-##'
-##' ## Load packages
-##' library(caret)
 ##' library(rpart)
-##' 
-##' ## Load and partition data
 ##' data(spam, package = "kernlab")
-##' set.seed(101)
-##' trainID <- createDataPartition(spam$type, p = 0.7, list = FALSE, times = 1)
-##' trainSample <- spam[trainID, ]
-##' testSample <- spam[-trainID, ]
-
-##' ## CART
-##' cartFit <- rpart(type ~ ., data = trainSample)
-
+##' spam_cart <- rpart(type ~ ., data = spam)
+##'
 ##' ## Battery priors
-##' table(trainSample$type)/nrow(trainSample)  # default priors
-##' res <- battery(cartFit, battery = "priors")
-##' res[order(res$error), ]  # order the results
+##' table(spam$type)/nrow(spam)  # default priors
+##' battery(spam_cart, type = "priors")
 battery <- function(object, ...) {
   UseMethod("battery")
 }
@@ -74,32 +156,8 @@ battery.rpart <- function(object,
       stop("battery priors is only available with classification trees")
     }
     
-    ## Response values
-    y <- data[, yname]
-    if (!is.factor(y)) y <- as.factor(y)
-    
-    ## Grid of prior values
-    priors <- priorGrid(n = length(unique(y)), .min = prior.min, 
-                        .max = prior.max, .step = prior.step)
-    
-    ## Allocate space
-    batteryFits <- vector("list", length = nrow(priors))  # to store trees
-#     auc <- numeric(nrow(priors))  # to store area under ROC curve
-    accuracy <- matrix(0, nrow = nrow(priors), ncol = nlevels(y)+1)  
-    
-    ## Create a model for each set of priors
-    for (i in seq_len(nrow(priors))) {
-      batteryFits[[i]] <- update(object, parms = list(prior = priors[i, ]))
-      pred_vals <- predict(batteryFits[[i]], newdata = data, type = "class")
-      conf_tab <- table(pred_vals, y)
-      accuracy[i, nlevels(y)+1] <- sum(diag(conf_tab)) / length(y)
-      ## FIXME: need to add individual class accuracy
-    }
-
-    ## Return results
-    names(priors) <- paste("prior", levels(y), sep = ".")
-    colnames(accuracy) <- c(paste("accuracy", levels(y), sep = "."), "accuracy")
-    return(cbind(priors, accuracy))
+    batterPriors(object, n = 2, .min = prior.min, .max = prior.max, 
+                 .step = prior.step)
     
   }
   

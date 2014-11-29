@@ -29,7 +29,7 @@ across.
  [7,] 1096.633158
  [8,] 2980.957987
 >
-> resize(m, 2)
+> resize(m, nrows = 2)
            [,1]       [,2]       [,3]       [,4]
 [1,]   2.718282   7.389056   20.08554   54.59815
 [2,] 148.413159 403.428793 1096.63316 2980.95799
@@ -43,6 +43,7 @@ across.
 ```
 
 ### Create terminal node dummy variables for hybrid models
+For more information, see the corresponding whitepaper at https://www.salford-systems.com/resources/whitepapers.
 ```S
 > library(rpart)  # classification and regression trees (CART)
 > library(earth)  # multivariate adaptive regression splines (MARS)
@@ -68,6 +69,7 @@ GCV 9.894404    RSS 3915.843    GRSq 0.8832577    RSq 0.9083291
 ```
 
 ### Easily set new seed values for simulation experiments
+I commonly find myself needing to set new seed values for small simulation experiments. While this is as easy as ```set.seed(123)```, I find it much easier to think of words or sentences instead. For example, in demoonstrating the law of large numbers (LLN), we would have to generate some random numbers. For reproducibility, we specify a seed such as above. However, I find it much easier to use a descriptive string: ```setSeed('LLN simulation')```.
 ```S
 > setSeed("Some random numbers")
 > rnorm(3)  # should give: 1.7500983 -0.1093635 -0.9958618
