@@ -6,7 +6,7 @@
 ##' 
 ##' @return An integer (not necessarily unique).
 ##' 
-##' @example
+##' @examples
 ##' ## Should all produce the same integer (currently results in 124)
 ##' str2int("Hello World")
 ##' str2int("hello world")
@@ -50,7 +50,7 @@ str2int <- function(string) {
 ##' 
 ##' @return Returns NULL, invisibly.
 ##' 
-##' @example
+##' @examples
 ##' setSeed("Some random numbers")
 ##' rnorm(3)  # should give: 1.7500983 -0.1093635 -0.9958618
 setSeed <- function(string) {

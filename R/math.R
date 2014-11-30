@@ -5,7 +5,7 @@
 ##' @param x
 ##' @param y
 ##' 
-##' @returns The length of the hypotenuse.
+##' @return The length of the hypotenuse.
 hypot <- function(x, y) {
   x <- abs(x)
   y <- abs(y)

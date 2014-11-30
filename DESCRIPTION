@@ -5,9 +5,7 @@ Version: 1.0.0.9000
 Date: 2014-11-26
 Author: Brandon M. Greenwell
 Maintainer: Brandon M. Greenwell <greenwell.brandon@gmail.com>
-Description: Some miscellaneous R functions related to classification and
-  regression trees (e.g., rpart and randomForest), colors, matrices, and
-  converting character vectors to integers.
+Description: Miscellaneous R functions.
 Depends:
     base,
     graphics,
@@ -16,6 +14,5 @@ Suggests:
     rpart,
     randomForest,
     testthat
-Date: 2014-11-26
 License: GPL (>= 2)
 URL: https://github.com/w108bmg/misc

@@ -15,7 +15,14 @@ mat(x, ...)
 Returns a matrix from a character vector or list of vectors.
 }
 \examples{
-mat('1, 2, 3; 4, 5, 6')
-mat(paste('exp(', 1:3, ')'))
+## Using character vectors
+mat('1, 2, 3; 4, 5, 6')  # similar to numpy.mat from Python extension NumPy
+(m <- mat(paste('exp(', 1:9, ')')))
+resize(m, 3, 3)
+resize(m, 3, 3, byrow = FALSE)
+matrix(exp(1:9), 3, 3)
+
+## Using a list
+mat(list(1:3, 4:6, 7:9))
 }
 

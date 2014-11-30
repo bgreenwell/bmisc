@@ -3,7 +3,7 @@
 \alias{resize}
 \title{Resize a given matrix}
 \usage{
-resize(x, nrows = nrow(x), ncols = ncol(x), byrow = TRUE)
+resize(x, nrows, ncols, byrow = TRUE)
 }
 \description{
 Returns a new matrix of dimension nrows by ncols using the elements of x.

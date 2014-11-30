@@ -18,6 +18,13 @@ mat <- function(x, ...) {
 
 ##' @rdname mat
 ##' @export
+##' @method mat default
+mat.default <- function(..., rows = TRUE) {
+  mat.list(list(...), rows = rows)
+}
+
+##' @rdname mat
+##' @export
 ##' @method mat character
 mat.character <- function(x) {
   

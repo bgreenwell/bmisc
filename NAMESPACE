@@ -1,1 +1,23 @@
-exportPattern("^[[:alpha:]]+")
+export(
+  listBatteryMethods,
+  battery,
+  nodeFactor,
+  
+  mat,
+  resize,
+  
+  hypot,
+  rad2deg,
+  degrrad,
+  
+  midpoints,
+  clamp
+)    
+
+## Methods
+S3method(mat, default) 
+S3method(mat, character)    
+S3method(mat, list)    
+S3method(battery, rpart)    
+S3method(battery, randomForest)    
+

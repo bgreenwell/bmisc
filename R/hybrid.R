@@ -33,7 +33,7 @@ assignNode <- function(object, newdata, na.action = na.pass, ...) {
 ##' @param ... Additional optional arguments. At present, no optional arguments 
 ##'   are used.
 ##' 
-##' @example
+##' @examples
 ##' ## Boston housing data
 ##' library(rpart)
 ##' library(rpart.plot)

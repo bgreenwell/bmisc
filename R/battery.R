@@ -21,6 +21,8 @@ RMSE <- function (pred, obs, na.rm = FALSE) {
   sqrt(mean((pred - obs)^2, na.rm = na.rm))
 }
 
+##' Model performance measures
+##' 
 R2 <- function(pred, obs, formula = "corr", na.rm = FALSE) {
   n <- sum(complete.cases(pred))  # number of complete cases
   switch(formula, 
@@ -57,6 +59,8 @@ priorGrid <- function(n = 2, .min = 0.05, .max = 0.95, .step = 0.05) {
   
 }
 
+##' CART Battery Priors
+##' 
 batteryPriors <- function(rpart_obj, n = 2, .min = 0.05, .max = 0.95, 
                           .step = 0.05) {
   
@@ -224,61 +228,3 @@ battery.rpart <- function(object,
   }
   
 }
-
-# ## Spam example ----------------------------------------------------------------
-# 
-# ## Load packages
-# library(caret)
-# library(rpart)
-# 
-# ## Load and partition data
-# data(spam, package = "kernlab")
-# set.seed(101)
-# trainID <- createDataPartition(spam$type, p = 0.7, list = FALSE, times = 1)
-# trainSample <- spam[trainID, ]
-# testSample <- spam[-trainID, ]
-# 
-# ## CART
-# cartFit <- rpart(type ~ ., data = trainSample)
-# 
-# ## Battery priors
-# table(trainSample$type)/nrow(trainSample)  # default priors
-# res <- battery(cartFit, newdata = trainSample, battery = "priors")
-# res[order(res[, "accuracy"], decreasing = TRUE), ]
-# 
-# ## Battery target
-# spam_target <- battery(cartFit, battery = "target", 
-#                        control = list(maxsurrogate = 0))
-# spam_target$results[order(spam_target$results$R.squared, decreasing = TRUE), 1:5]
-# tree34 <- spam_target$fits[[34]]
-# prp(tree34)
-# library(plotmo)
-# plotmo(tree34, data = spamTrain)
-# 
-# ## Using confusionMatrix from caret package
-# fit <- rpart(Species ~ ., data = iris)
-# pred <- predict(fit, type = "class")
-# ctab <- table(pred = pred, truth = iris$Species)
-# cmat <- confusionMatrix(ctab)
-# 
-# ## Bouston housing example -----------------------------------------------------
-# data(Boston, package = "MASS")
-# Boston2 <- Boston
-# Boston2$x <- log(Boston2$nox) + sin(Boston2$rm)
-# fit <- rpart(medv ~ ., data = Boston2)
-# battery(fit, battery = "target", control = list(maxsurrogate = 0))
-# 
-# ## Wine example ----------------------------------------------------------------
-# 
-# ## Import data
-# wine <- read.csv("/home/w108bmg/Downloads/winequality-red.csv", sep = ";",
-#                  header = TRUE)
-# set.seed(101)
-# trainID <- createDataPartition(wine$quality, p = 0.8, list = FALSE, times = 1)
-# wineTrain <- wine[trainID, ]
-# wineTest <- wine[-trainID, ]
-# wineCART <- rpart(quality ~ ., data = wineTrain)
-# wineTarget <- battery(wineCART, battery = "target",
-#                       control = list(maxsurrogate = 0))
-# wineTarget
-# densityCART <- wineTarget$batteries[[8]]
