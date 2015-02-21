@@ -1,14 +1,16 @@
 export(
   listBatteryMethods,
   battery,
-  nodeFactor,
+  perf,
+  
+  #nodeFactor,
   
   mat,
   resize,
   
   hypot,
   rad2deg,
-  degrrad,
+  deg2rad,
   
   midpoints,
   clamp
@@ -19,5 +21,5 @@ S3method(mat, default)
 S3method(mat, character)    
 S3method(mat, list)    
 S3method(battery, rpart)    
-S3method(battery, randomForest)    
+#S3method(battery, randomForest)    
 

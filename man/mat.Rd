@@ -2,10 +2,13 @@
 \name{mat}
 \alias{mat}
 \alias{mat.character}
+\alias{mat.default}
 \alias{mat.list}
 \title{NumPy style matrix function}
 \usage{
 mat(x, ...)
+
+\method{mat}{default}(..., rows = TRUE)
 
 \method{mat}{character}(x)
 

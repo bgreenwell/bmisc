@@ -8,4 +8,5 @@ batteryPriors(rpart_obj, n = 2, .min = 0.05, .max = 0.95, .step = 0.05)
 \description{
 CART Battery Priors
 }
+\keyword{internal}
 

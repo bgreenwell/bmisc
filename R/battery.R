@@ -17,20 +17,18 @@ listBatteryMethods <- function() {
 
 ##' Model performance measures
 ##' 
-RMSE <- function (pred, obs, na.rm = FALSE) {
-  sqrt(mean((pred - obs)^2, na.rm = na.rm))
-}
-
-##' Model performance measures
-##' 
-R2 <- function(pred, obs, formula = "corr", na.rm = FALSE) {
-  n <- sum(complete.cases(pred))  # number of complete cases
-  switch(formula, 
-         corr = cor(obs, pred, 
-                    use = ifelse(na.rm, "complete.obs", "everything"))^2, 
-         traditional = 1 - (sum((obs - pred)^2, na.rm = na.rm)/
-                              ((n - 1) * var(obs, na.rm = na.rm)))
-  )
+##' Calculate the mean squared error or R-squared based on two numeric vectors. 
+perf <- function(pred, y, method = c("rmse", "rsquared"), corr = TRUE) {
+  method <- match.arg(method)
+  if (method == "rmse") {
+    sqrt(mean((pred - obs)^2, na.rm = na.rm))
+  } else {
+    if (corr) {
+      cor(y, pred)^2
+    } else {
+      1 - (sum((y - pred)^2) / ((n - 1) * var(y)))
+    }
+  }
 }
 
 ##' Make a grid of prior values
@@ -61,6 +59,7 @@ priorGrid <- function(n = 2, .min = 0.05, .max = 0.95, .step = 0.05) {
 
 ##' CART Battery Priors
 ##' 
+##' @keywords internal
 batteryPriors <- function(rpart_obj, n = 2, .min = 0.05, .max = 0.95, 
                           .step = 0.05) {
   
