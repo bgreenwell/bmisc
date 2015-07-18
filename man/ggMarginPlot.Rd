@@ -7,6 +7,20 @@
 ggMarginPlot(object, include.legend = TRUE, xlab = "Index",
   ylab = "Margin", main = "Margin Plot\\n", ...)
 }
+\arguments{
+\item{object}{A \code{randomForest} object.}
+
+\item{include.legend}{Logical indicating whether a legend should be drawn
+on the plot.}
+
+\item{xlab}{x-axis label.}
+
+\item{ylab}{y-axis label.}
+
+\item{main}{Plot title.}
+
+\item{...}{Additional optional arguments.}
+}
 \description{
 Margin Plot
 }

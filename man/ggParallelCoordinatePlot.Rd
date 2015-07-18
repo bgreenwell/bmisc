@@ -8,7 +8,7 @@ ggParallelCoordinatePlot(object, include.legend = FALSE, xlab = "Variable",
   ylab = "Importance score", main = "Parallel Coordinate Plot\\n", ...)
 }
 \arguments{
-\item{object}{#'}
+\item{object}{An object of class \code{"randomForest"}.}
 
 \item{include.legend}{Logical indicating whether to include a legend. Default
 is \code{TRUE}.}
@@ -20,17 +20,9 @@ is \code{TRUE}.}
 \item{main}{A main title for the plot.}
 
 \item{...}{Additional optional arguments.}
-
-\item{object}{An object of class \code{"randomForest"}.}
 }
 \description{
 Parallel coordinates plot of random forest feature importance scores for each
 class.
-}
-\examples{
-# Forensic glass data
-data(Glass, package = "mlbench")
-rf_glass <- randomForest(Type ~ ., data = Glass, importance = TRUE)
-ggParallelCoordinatePlot(rf_glass, include.legend = TRUE)
 }
 

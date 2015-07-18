@@ -17,7 +17,13 @@ ggProximityPlot(object, plot.type = c("heat", "MDS", "outlier"), fac,
 \code{"heat"} for a heat map of the proximity matrix or \code{"MDS"} for a
 multi-dimensional scaling plot of the proximity matrix.}
 
-\item{include.legend}{Logical indicating whether to include a legend. Default}
+\item{fac}{Abc.}
+
+\item{size}{Abc.}
+
+\item{alpha}{Abc.}
+
+\item{include.legend}{Logical indicating whether to include a legend.}
 
 \item{...}{Additional optional arguments. This option is currently ignored.}
 
@@ -29,17 +35,5 @@ multi-dimensional scaling plot of the proximity matrix.}
 }
 \description{
 ggplot2 version of \code{randomForest::MDSplot} and more.
-}
-\examples{
-# Motor trend car road test data (regression)
-data(mtcars, package = "datasets")
-rf_mtcars <- randomForest(mpg ~ ., data = mtcars, proximity = TRUE)
-ggProximityPlot(rf_mtcars, plot.type = "heat")
-
-# Iris data (classification)
-data(iris, package = "datasets")
-rf_iris <- randomForest(Species ~ ., data = iris, proximity = TRUE)
-ggProximityPlot(rf_iris, plot.type = "MDS", fac = iris$Species, size = 5,
-                alpha = 0.5)
 }
 

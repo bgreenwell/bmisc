@@ -3,12 +3,17 @@
 #' Extract information from a \code{"randomForest"} object into a data frame.
 #' 
 #' @param object An object of class \code{"randomForest"}.
-#' @param type The type of data to collect.
-#' @param ... Additional arguments.
+#' @param values The type of data to collect.
 #' @param fac A factor that was used as the response to train the random forest.
 #'   Only used if \code{values = "proximity-mds"} or 
 #'   \code{values = "proximity-outlier"}.
+#' @param ... Additional arguments.
+#' 
 #' @return A data frame.
+#' 
+#' @importFrom ggplot2 fortify
+#' @importFrom randomForest importance margin partialPlot
+#' @importFrom reshape2 melt
 #' 
 #' @export
 fortify.randomForest <- function (object, 
@@ -27,8 +32,8 @@ fortify.randomForest <- function (object,
   # Object should have type "regression" or "classification"
   rf_type <- object$type
   if (rf_type == "unsupervised") {
-    stop(paste("ggRandomForest does not currently support", 
-               "unsupervised random forests"))
+    stop(paste("ggRandomForest does not currently support unsupervised random", 
+               "forests."), call. = FALSE)
   }
   
   values <- match.arg(values)

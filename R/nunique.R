@@ -10,7 +10,7 @@ nunique <- function(x) {
 
 
 #' @rdname nunique
-#' @S3method nunique default
+#' @method nunique default
 #' @export
 nunique.default <- function(x) {
   length(unique(x))
@@ -18,7 +18,7 @@ nunique.default <- function(x) {
 
 
 #' @rdname nunique
-#' @S3method nunique matrix
+#' @method nunique matrix
 #' @export
 nunique.matrix <- function(x) {
   nrow(unique(x))
@@ -26,7 +26,7 @@ nunique.matrix <- function(x) {
 
 
 #' @rdname nunique
-#' @S3method nunique data.frame
+#' @method nunique data.frame
 #' @export
 nunique.data.frame <- function(x) {
   nrow(unique(x))

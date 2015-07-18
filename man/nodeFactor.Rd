@@ -26,24 +26,4 @@ A data frame containing the original data with an additional factor
 Augments the supplied data with an additional factor variable describing
 terminal node assignment.
 }
-\examples{
-#
-# Boston housing data
-#
-
-# Load packages and data
-library(rpart)  # for CART-like decision trees
-library(earth)  # for MARS-like regression models
-data(Boston, package = "MASS")  # Boston housing data
-
-# CART model
-boston_cart <- rpart(medv ~ ., data = Boston, cp = 0.005)
-Boston2 <- addNodeFactor(boston_cart)
-
-# MARS model
-earth(medv ~ ., data = Boston, degree = 2, linpreds = TRUE)
-
-# Hybrid model
-earth(medv ~ ., data = Boston2, degree = 2, linpreds = TRUE)
-}
 

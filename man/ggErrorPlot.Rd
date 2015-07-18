@@ -18,6 +18,8 @@ is \code{TRUE}.}
 \item{ylab}{A label for the y axis.}
 
 \item{main}{A main title for the plot.}
+
+\item{...}{Additional optional arguments.}
 }
 \description{
 ggplot2-based lineplot of oob-based error for a random forest object.

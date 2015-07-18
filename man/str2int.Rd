@@ -16,7 +16,7 @@ An integer (not necessarily unique).
 Convert one-dimensional character objects to integers.
 }
 \examples{
-## Should all produce the same integer (currently results in 124)
+# Should all produce the same integer (currently results in 124)
 str2int("Hello World")
 str2int("hello world")
 str2int("hello   world")
@@ -34,7 +34,7 @@ rnorm(3)  # should give: 1.7500983 -0.1093635 -0.9958618
 set.seed(str2int("Some more random numbers"))
 rnorm(3)  # should give: 0.007765185 -1.138536203  0.091017129
 
-## Potential issues
+# Potential issues
 str2int("abc")  # does not provide unique integers
 str2int("cba")
 }

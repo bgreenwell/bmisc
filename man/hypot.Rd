@@ -7,14 +7,14 @@
 hypot(x, y)
 }
 \arguments{
-\item{x}{}
+\item{x}{A numeric value representing one leg of the triangle.}
 
-\item{y}{}
+\item{y}{A numeric value representing the other leg of the triangle.}
 }
 \value{
 The length of the hypotenuse.
 }
 \description{
-Calculate the length of the hypotenuse of a right-angle triangle.
+Calculate the length of the hypotenuse of a right-angled triangle.
 }
 

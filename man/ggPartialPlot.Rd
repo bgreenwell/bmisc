@@ -28,15 +28,4 @@ variable of interest.}
 \description{
 ggplot2 version of \code{randomForest::partialPlot}.
 }
-\examples{
-# Boston housing data (regression)
-data(Boston, package = "MASS")
-rf_boston <- randomForest(medv ~ ., data = Boston)
-ggPartialPlot(rf_boston, pred.data = Boston, x.var = "rm")
-
-# Iris data (classification)
-data(iris, package = "datasets")
-rf_iris <- randomForest(Species ~ ., data = iris)
-ggPartialPlot(rf_iris, pred.data = iris, x.var = "Petal.Width")
-}
 

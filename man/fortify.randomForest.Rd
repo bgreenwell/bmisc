@@ -4,20 +4,20 @@
 \alias{fortify.randomForest}
 \title{Random Forest Summary Data}
 \usage{
-fortify.randomForest(object, values = c("importance", "oob-error",
+\method{fortify}{randomForest}(object, values = c("importance", "oob-error",
   "oob-rsquared", "margin", "parallel", "partial", "proximity-heat",
   "proximity-mds", "proximity-outlier"), fac, ...)
 }
 \arguments{
 \item{object}{An object of class \code{"randomForest"}.}
 
+\item{values}{The type of data to collect.}
+
 \item{fac}{A factor that was used as the response to train the random forest.
 Only used if \code{values = "proximity-mds"} or
 \code{values = "proximity-outlier"}.}
 
 \item{...}{Additional arguments.}
-
-\item{type}{The type of data to collect.}
 }
 \value{
 A data frame.

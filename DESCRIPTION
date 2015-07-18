@@ -7,13 +7,10 @@ Author: Brandon M. Greenwell
 Maintainer: Brandon M. Greenwell <greenwell.brandon@gmail.com>
 Description: Miscellaneous R functions.
 Depends:
-    base,
-    graphics,
-    stats
-Suggests:
+    base
+Imports:
     ggplot2,
     randomForest,
-    rpart,
-    testthat
+    reshape2
 License: GPL (>= 2)
 URL: https://github.com/w108bmg/misc

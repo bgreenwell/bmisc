@@ -21,6 +21,8 @@ return.}
   their "standard errors"?
 ... Additional optional arguments. This option is currently ignored.}
 
+\item{...}{Additional optional arguments.}
+
 \item{main}{A main title for the plot.}
 
 \item{xlab}{A label for the x axis.}
@@ -29,16 +31,5 @@ return.}
 }
 \description{
 ggplot2 version of \code{randomForest::varImpPlot}.
-}
-\examples{
-# Boston housing example (regression)
-data(Boston, package = "MASS")
-rf_boston <- randomForest(medv ~ ., data = Boston)
-ggVarImpPlot(rf_boston)
-
-# Iris data (classification)
-data(iris, package = "datasets")
-rf_iris <- randomForest(Species ~ ., data = iris)
-ggVarImpPlot(rf_iris)
 }
 

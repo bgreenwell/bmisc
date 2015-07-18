@@ -12,33 +12,31 @@ clip <- function(x, .min, .max, ...) {
 }
 
 
+#' @rdname clip
+#' @method clip default
 #' @export
-clip.integer <- function(x, .min, .max, ...) {
-  if (!missing(.min)) x[x < interval[1L]] <- interval[1L]
-  if (!missing(.max)) x[x > interval[2L]] <- interval[2L]
+clip.default <- function(x, .min, .max, ...) {
+  if (!missing(.min)) x[x < .min] <- .min
+  if (!missing(.max)) x[x > .max] <- .max
   x
 }
 
 
-#' @export
-clip.numeric <- function(x, .min, .max, ...) {
-  if (!missing(.min)) x[x < interval[1L]] <- interval[1L]
-  if (!missing(.max)) x[x > interval[2L]] <- interval[2L]
-  x
-}
-
-
+#' @rdname clip
+#' @method clip matrix
 #' @export
 clip.matrix <- function(x, .min, .max, ...) {
-  if (!missing(.min)) x[x < interval[1L]] <- interval[1L]
-  if (!missing(.max)) x[x > interval[2L]] <- interval[2L]
+  if (!missing(.min)) x[x < .min] <- .min
+  if (!missing(.max)) x[x > .max] <- .max
   x
 }
 
 
+#' @rdname clip
+#' @method clip array
 #' @export
 clip.array <- function(x, .min, .max, ...) {
-  if (!missing(.min)) x[x < interval[1L]] <- interval[1L]
-  if (!missing(.max)) x[x > interval[2L]] <- interval[2L]
+  if (!missing(.min)) x[x < .min] <- .min
+  if (!missing(.max)) x[x > .max] <- .max
   x
 }

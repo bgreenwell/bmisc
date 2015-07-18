@@ -5,11 +5,9 @@
 #' @param ... Plots of class \code{"ggplot"}.
 #' @param cols Desired number of coluns in final layout of plot.
 #' @param layout Desired layout of plots.
-#' 
+#' @importFrom grid grid.layout grid.newpage pushViewport viewport
 #' @export
 multiplot <- function(..., cols = 1, layout = NULL) {
-  
-  library(grid)
   
   # Make a list from the ... arguments
   plots <- list(...)

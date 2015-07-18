@@ -8,7 +8,11 @@
 #' @param main A main title for the plot.
 #' @param xlab A label for the x axis.
 #' @param ylab A label for the y axis.
-#' 
+#' @param ... Additional optional arguments.
+#' @importFrom ggplot2 aes coord_flip element_blank element_text geom_bar
+#' @importFrom ggplot2 geom_hline geom_line geom_point geom_tile ggplot ggtitle
+#' @importFrom ggplot2 scale_fill_gradient scale_x_discrete scale_y_discrete
+#' @importFrom ggplot2 stat_smooth theme theme_light xlab ylab
 #' @export
 ggErrorPlot <-function(object, include.legend = TRUE,                           
                        xlab = "Number of trees",
@@ -45,8 +49,16 @@ ggErrorPlot <-function(object, include.legend = TRUE,
 
 #' Margin Plot
 #' 
+#' @param object A \code{randomForest} object.
+#' @param include.legend Logical indicating whether a legend should be drawn
+#'   on the plot.
+#' @param xlab x-axis label.
+#' @param ylab y-axis label.
+#' @param main Plot title.
+#' @param ... Additional optional arguments.
 #' @export
-ggMarginPlot <- function(object, include.legend = TRUE,                           
+ggMarginPlot <- function(object, 
+                         include.legend = TRUE,                           
                          xlab = "Index",
                          ylab = "Margin",
                          main = "Margin Plot\n", ...) {
@@ -82,20 +94,15 @@ ggMarginPlot <- function(object, include.legend = TRUE,
 #' Parallel coordinates plot of random forest feature importance scores for each
 #' class.
 #' 
-#' @param object #' @param object An object of class \code{"randomForest"}.
+#' @param object An object of class \code{"randomForest"}.
 #' @param include.legend Logical indicating whether to include a legend. Default
 #'   is \code{TRUE}.
 #' @param main A main title for the plot.
 #' @param xlab A label for the x axis.
 #' @param ylab A label for the y axis.
 #' @param ... Additional optional arguments.
-#' 
+#' @importFrom randomForest randomForest
 #' @export
-#' @examples
-#' # Forensic glass data
-#' data(Glass, package = "mlbench")
-#' rf_glass <- randomForest(Type ~ ., data = Glass, importance = TRUE)
-#' ggParallelCoordinatePlot(rf_glass, include.legend = TRUE)
 ggParallelCoordinatePlot <- function(object, 
                                      include.legend = FALSE,
                                      xlab = "Variable",
@@ -142,18 +149,8 @@ ggParallelCoordinatePlot <- function(object,
 #' @param main A main title for the plot.
 #' @param xlab A label for the x axis.
 #' @param ylab A label for the y axis.
-#' 
+#' @importFrom randomForest randomForest
 #' @export
-#' @examples
-#' # Boston housing data (regression)
-#' data(Boston, package = "MASS")
-#' rf_boston <- randomForest(medv ~ ., data = Boston)
-#' ggPartialPlot(rf_boston, pred.data = Boston, x.var = "rm")
-#' 
-#' # Iris data (classification)
-#' data(iris, package = "datasets")
-#' rf_iris <- randomForest(Species ~ ., data = iris)
-#' ggPartialPlot(rf_iris, pred.data = iris, x.var = "Petal.Width")
 ggPartialPlot <- function(object, smooth = TRUE, ...,
                           main = "Partial Dependence Plot\n",
                           xlab = list(...)$x.var,
@@ -189,24 +186,16 @@ ggPartialPlot <- function(object, smooth = TRUE, ...,
 #' @param plot.type Type of plot to produce. Current options are 
 #'   \code{"heat"} for a heat map of the proximity matrix or \code{"MDS"} for a
 #'   multi-dimensional scaling plot of the proximity matrix.
-#' @param include.legend Logical indicating whether to include a legend. Default
+#' @param fac Abc.
+#' @param size Abc.
+#' @param alpha Abc.
+#' @param include.legend Logical indicating whether to include a legend.
 #' @param main A main title for the plot.
 #' @param xlab A label for the x axis.
 #' @param ylab A label for the y axis.
 #' @param ... Additional optional arguments. This option is currently ignored.
-#' 
+#' @importFrom randomForest randomForest
 #' @export
-#' @examples
-#' # Motor trend car road test data (regression)
-#' data(mtcars, package = "datasets")
-#' rf_mtcars <- randomForest(mpg ~ ., data = mtcars, proximity = TRUE)
-#' ggProximityPlot(rf_mtcars, plot.type = "heat")
-#' 
-#' # Iris data (classification)
-#' data(iris, package = "datasets")
-#' rf_iris <- randomForest(Species ~ ., data = iris, proximity = TRUE)
-#' ggProximityPlot(rf_iris, plot.type = "MDS", fac = iris$Species, size = 5, 
-#'                 alpha = 0.5)
 ggProximityPlot <- function(object, plot.type = c("heat", "MDS", "outlier"), 
                             fac, size = 3, alpha = 1, include.legend = TRUE, ...,
                             xlab = if (plot.type == "MDS") "Dimension 1" else "",
@@ -310,18 +299,9 @@ ggProximityPlot <- function(object, plot.type = c("heat", "MDS", "outlier"),
 #' @param main A main title for the plot.
 #' @param xlab A label for the x axis.
 #' @param ylab A label for the y axis.
-#' 
+#' @param ... Additional optional arguments.
+#' @importFrom randomForest randomForest
 #' @export
-#' @examples
-#' # Boston housing example (regression)
-#' data(Boston, package = "MASS")
-#' rf_boston <- randomForest(medv ~ ., data = Boston)
-#' ggVarImpPlot(rf_boston)
-#' 
-#' # Iris data (classification)
-#' data(iris, package = "datasets")
-#' rf_iris <- randomForest(Species ~ ., data = iris)
-#' ggVarImpPlot(rf_iris)
 ggVarImpPlot <- function(object, type = NULL, class = NULL, scale = TRUE, ...,
                          main = "Feature Importance Plot\n",
                          xlab = "",
