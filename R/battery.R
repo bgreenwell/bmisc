@@ -14,10 +14,12 @@
 #' bt <- battery_target(Mushroom)
 #' bt
 #' plot(bt)
-battery_target<- function(X, ...) {
+battery_target<- function(X, cv = FALSE, ...) {
 
   nvars <- ncol(X)
 
+  # FIXME: Should we use the cv_tree function that's based on caret::train?
+  
   # Allocate space
   trees <- vector("list", length = nvars)  # to store trees
   vi_matrix <- diag(rep(NA, nvars))  # to store variable importance
@@ -28,8 +30,19 @@ battery_target<- function(X, ...) {
   for (i in seq_len(nvars)) {
     form <- formula(paste(names(X)[i], "~",
                           paste(names(X)[-i], collapse = "+")))
-    trees[[i]] <- tryCatch(rpart(form, data = X, ...),
+    if (cv) {
+      .tree <- tryCatch(rpart(form, data = X, 
+                                 control = rpart.control(cp = 0), ...),
                            error = function(e) NULL)
+      if (!is.null(.tree)) {
+        opt <- .tree$cptable[which.min(.tree$cptable[, "xerror"]), "CP"]
+        .tree <- prune(.tree, cp = opt)
+      }
+      trees[[i]] <- .tree
+    } else {
+      trees[[i]] <- tryCatch(rpart(form, data = X, ...),
+                             error = function(e) NULL)
+    }
     if (is.null(trees[[i]])) {
       r2[i] <- rmse[i] <- accuracy[i] <- kappa[i] <- NA
     } else {
@@ -80,7 +93,7 @@ print.battery_target <- function(x, ...) {
 
 #' Plot the Output of a Battery Target Run
 #'
-#' This visualizes the output of a battery target run usig a heatmap of the
+#' This visualizes the output of a battery target run using a heatmap of the
 #' variable importance matrix.
 #'
 #' @importFrom stats heatmap

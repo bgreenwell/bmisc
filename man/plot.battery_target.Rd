@@ -12,7 +12,7 @@
 \item{...}{Additional optional arguments to be passed on to \code{heatmap}.}
 }
 \description{
-This visualizes the output of a battery target run usig a heatmap of the
+This visualizes the output of a battery target run using a heatmap of the
 variable importance matrix.
 }
 

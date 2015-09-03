@@ -4,7 +4,7 @@
 \alias{battery_target}
 \title{Battery Target}
 \usage{
-battery_target(X, ...)
+battery_target(X, cv = FALSE, ...)
 }
 \arguments{
 \item{X}{A data frame of predictor variables.}
