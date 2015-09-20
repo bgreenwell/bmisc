@@ -3,7 +3,7 @@
 #' Assign each observation of the original data (or newdata) to a terminal
 #' node. Based on a nice hack from stackoverflow.
 #'
-#' @rdname assignNode
+#' @rdname assign_node
 #' @export
 #'
 #' @param object An object that inherits from class \code{rpart}.
@@ -16,7 +16,7 @@
 #'
 #' @return A numeric vector containing the terminal node each observation
 #'   belongs to.
-assignNode <- function(object, newdata, na.action = na.pass, ...) {
+assign_node <- function(object, newdata, na.action = na.pass, ...) {
 
   # Extract data if none are specified
   .data <- if (missing(newdata)) eval(object$call$data) else newdata
@@ -30,7 +30,7 @@ assignNode <- function(object, newdata, na.action = na.pass, ...) {
 
 }
 
-#' Create CART-like Dummy Variables
+#' Terminal Node Indicator
 #'
 #' Augments the supplied data with an additional factor variable describing
 #' terminal node assignment.
@@ -60,19 +60,18 @@ assignNode <- function(object, newdata, na.action = na.pass, ...) {
 # 
 # # CART model
 # boston_cart <- rpart(medv ~ ., data = Boston, cp = 0.005)
-# Boston2 <- addNodeFactor(boston_cart)
+# Boston2 <- add_node_factor(boston_cart)
 # 
 # # MARS model
 # earth(medv ~ ., data = Boston, degree = 2, linpreds = TRUE)
 # 
 # # Hybrid model
 # earth(medv ~ ., data = Boston2, degree = 2, linpreds = TRUE)
-addNodeFactor <- function(object, newdata, important = FALSE, ...) {
+add_node_factor <- function(object, newdata, important = FALSE, ...) {
   .data <- if (missing(newdata)) eval(object$call$data) else newdata
   if (important) {  # only keep "important" variables
     .data <- .data[, c(names(object$variable.importance),
                        all.vars(formula(object)[[2]]))]
   }
-  #data$node <- as.factor(object$where)  # terminal node indicators
-  within(.data, { node <- as.factor(assignNode(object, newdata = .data)) })
+  .data$node <- as.factor(assign_node(object, newdata = .data))
 }
