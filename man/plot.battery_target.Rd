@@ -2,17 +2,16 @@
 % Please edit documentation in R/battery.R
 \name{plot.battery_target}
 \alias{plot.battery_target}
-\title{Plot the Output of a Battery Target Run}
+\title{Variable Importance Heatmap}
 \usage{
 \method{plot}{battery_target}(x, ...)
 }
 \arguments{
 \item{x}{An object that inherits from class \code{"battery_target"}.}
 
-\item{...}{Additional optional arguments to be passed on to \code{heatmap}.}
+\item{...}{Additional optional arguments to be passed onto \code{d3heatmap}.}
 }
 \description{
-This visualizes the output of a battery target run using a heatmap of the
-variable importance matrix.
+Produces a heatmap of all the pairwise variable importance scores.
 }
 

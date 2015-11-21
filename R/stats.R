@@ -1,13 +1,15 @@
-#' Statistical Mode
+#' Most Frequent Value
 #' 
-#' Compute the mode (i.e., most frequent element).
+#' \code{most_freq} returns the most frequent value in \code{x}.
 #' 
-#' @param x A vector of numbers or characters.
-#' @param na.rm Logical indicating whether \code{NA} values should be stripped
-#'   before the computation prceeds.
+#' @param x A vector.
 #' @export
-statmode <- function(x, na.rm = TRUE) {
-  # FIXME: How to handle ties?
-  if (na.rm) x <- na.omit(x)
-  x[which.max(table(x))]
+most_freq <- function(x) {
+  names(which.max(table(x, useNA = "always")))
+}
+
+
+#' 
+cv <- function(x, na.rm = FALSE, trim = 0) {
+  sd(x, na.rm = na.rm) / mean(x, na.rm = na.rm, trim = trim)
 }

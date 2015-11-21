@@ -13,6 +13,9 @@ cv_tree(x, y, cv.folds = 10, tune.length = 10)
 
 \item{cv.folds}{In teger representing the number of folds to use for cross-
 validation.}
+
+\item{tune.length}{Integer denoting the number of levels for each tuning
+parameters that should be generated.}
 }
 \description{
 Build a decision tree based on k-fold cross-validation.

@@ -1,16 +1,22 @@
 Package: misc
 Type: Package
 Title: Miscellaneous R Functions
-Version: 1.0.0.9000
-Date: 2014-11-26
+Version: 0.1.2
+Date: 2015-10-24
 Author: Brandon M. Greenwell
 Maintainer: Brandon M. Greenwell <greenwell.brandon@gmail.com>
 Description: Miscellaneous R functions.
 Depends:
     base
 Imports:
+    caret,
+    corrplot,
+    e1071,
     ggplot2,
+    plyr,
     randomForest,
-    reshape2
+    reshape2,
+    rpart,
+    tidyr
 License: GPL (>= 2)
 URL: https://github.com/w108bmg/misc

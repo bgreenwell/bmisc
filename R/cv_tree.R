@@ -6,7 +6,9 @@
 #' @param y A vector of response values.
 #' @param cv.folds In teger representing the number of folds to use for cross-
 #'   validation.
-#' @importFrom caret train
+#' @param tune.length Integer denoting the number of levels for each tuning 
+#'   parameters that should be generated.
+#' @importFrom caret train trainControl
 #' @importFrom rpart rpart
 #' @export
 #' @examples
