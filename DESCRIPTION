@@ -1,4 +1,4 @@
-Package: misc
+Package: bmisc
 Type: Package
 Title: Miscellaneous R Functions
 Version: 0.1.2
@@ -19,4 +19,4 @@ Imports:
     rpart,
     tidyr
 License: GPL (>= 2)
-URL: https://github.com/w108bmg/misc
+URL: https://github.com/w108bmg/bmisc

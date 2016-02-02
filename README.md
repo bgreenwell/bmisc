@@ -1,4 +1,4 @@
-misc
+bmisc
 ================================================================================
 
 This package contains some random (but hopefully useful) functions that I have

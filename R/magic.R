@@ -26,9 +26,3 @@ odd_magic_square <- function(n) {
   }
   x
 }
-
-
-# Check combinatorics book for algorithms!
-
-
-

@@ -9,7 +9,13 @@ most_freq <- function(x) {
 }
 
 
+#' Coefficient of Variation
 #' 
-cv <- function(x, na.rm = FALSE, trim = 0) {
+#' Calculate the sample coefficient of variation for a vector of data.
+#' 
+#' @param x A numeric vector.
+#' @param na.rm Logical indicating whether or not \code{NA} values should be 
+#'   stripped before the computation proceeds.
+cv <- function(x, na.rm = FALSE) {
   sd(x, na.rm = na.rm) / mean(x, na.rm = na.rm, trim = trim)
 }

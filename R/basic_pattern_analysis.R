@@ -1,19 +1,16 @@
 #' @keywords internal
-get_pattern <- function(x) {
-  if (is.na(x)) {
-    return(x)
-  } else {
-    if (!is.character(x)) {
-      x <- as.character(x)
-    }
-    x <- unlist(strsplit(x, split = ""))
-    x[grep("[a-z]", x)] <- "a"
-    x[grep("[A-Z]", x)] <- "A"
-    x[grep("[0-9]", x)] <- "9"
+get_pattern <- function(x, show_whitespace = FALSE) {
+  if (!is.character(x)) {
+    x <- as.character(x)
   }
-  paste(x, collapse = "")
+  x <- gsub("[a-z]", "a", x)
+  x <- gsub("[A-Z]", "A", x)
+  x <- gsub("[0-9]", "9", x)
+  if (show_whitespace) {
+    x <- gsub("\\s", "w", x)
+  }
+  x
 }
-
 
 #' Basic Pattern Analysis
 #' 
@@ -23,29 +20,35 @@ get_pattern <- function(x) {
 #' @param unique_only Logical indicating wether or not to only show the unique
 #'   patterns. Default is \code{FALSE}.
 #' @param ... Additional optional arguments. (Currently ignored).
+#' @rdname bpa
 #' @export
 #' @examples 
 #' basic_pattern_analysis(iris)
 #' basic_pattern_analysis(iris, unique_only = TRUE)
-basic_pattern_analysis <- function(x, unique_only = FALSE, ...) {
+basic_pattern_analysis <- function(x, unique_only = FALSE, 
+                                   show_whitespace = FALSE) {
   UseMethod("basic_pattern_analysis")
 }
 
 
+#' @rdname bpa
 #' @export
-basic_pattern_analysis.default <- function(x, unique_only = FALSE, ...) {
+basic_pattern_analysis.default <- function(x, unique_only = FALSE,
+                                           show_whitespace = FALSE) {
   if (unique_only) {
-    # unique(sapply(x, get_pattern, ...))
-    table(sapply(x, get_pattern, ...))
+    table(get_pattern(x, show_whitespace = show_whitespace))
   } else {
-    sapply(x, get_pattern, ...)
+    get_pattern(x, show_whitespace = show_whitespace)
   }
 }
 
 
+#' @rdname bpa
 #' @export
-basic_pattern_analysis.data.frame <- function(x, unique_only = FALSE, ...) {
-  z <- lapply(x, basic_pattern_analysis.default, unique_only = unique_only, ...)
+basic_pattern_analysis.data.frame <- function(x, unique_only = FALSE, 
+                                              show_whitespace = FALSE) {
+  z <- lapply(x, basic_pattern_analysis.default, unique_only = unique_only, 
+              show_whitespace = show_whitespace)
   if (unique_only) {
     z
   } else {
