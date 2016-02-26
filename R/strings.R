@@ -147,4 +147,13 @@ kth_digit <- function(string, k = 1L) {
     out <- grep("[0-9]", tokens, value = TRUE)
     out[k]
   })
+  
+  # List of positions of each digit for each element of x
+  #pos <- gregexpr("[0-9]", text = x)
+  
+  # Extract position of k-th digit for each element of x
+  #posk <- unlist(lapply(pos, function(x) x[k]))
+  
+  # Extract k-th digit from each element of x
+  #as.numeric(substr(x, start = posk, stop = posk))
 }
