@@ -36,11 +36,3 @@ which.integer <- function(x, names = TRUE) {
     pos
   }
 }
-
-
-varTypes <- function(x) {
-  types <- sapply(x, class))
-  lapply(sort(unique(types)), function(y) {
-    
-  })
-}

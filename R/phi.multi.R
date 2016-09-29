@@ -84,35 +84,3 @@ print.phi.multi <- function(x, ...) {
   }
   cat("\n", "Average phi coefficient:", x$avg.phi, "\n")
 }
-
-
-################################################################################
-# Examples
-################################################################################
-
-# Example 1: multi label
-x1 <- c("a, b",    "c",    "a",       "c, b",    "a")
-y1 <- c("a, c",    "c",    "a, b",    "b, c",    "a")
-res <- phi.multi(x1, y1)
-print(res)
-irr::kappa2(cbind(x1, y1))
-
-for (i in 1:3) {
-  tab <- table(res$xrm[, i], res$yrm[, i])
-  cat("\n", "Phi:", phi.coefficient(tab), "\n")
-  print(tab)
-}
-
-# Example 2: single label
-x2 <- c("a", "b", "b", "b", "a", "b", "a", "a")
-y2 <- c("a", "a", "b", "b", "a", "b", "a", "a")
-phi.multi(x2, y2)
-irr::kappa2(cbind(x2, y2))
-
-# Example 3: complete agreement
-phi.multi(x1, x1)
-irr::kappa2(cbind(x1, x1))
-
-# Example 4: complete disagreement
-phi.multi(c("a", "b", "b", "a"), c("b", "a", "a", "b"))
-irr::kappa2(cbind(c("a", "b", "b", "a"), c("b", "a", "a", "b")))

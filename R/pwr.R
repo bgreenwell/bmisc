@@ -3,8 +3,8 @@
 #' Calculates the required sample size for a log-rank test using Freedman's
 #' method.
 #' 
-#' @param S1
-#' @param S2
+#' @param S1 ?.
+#' @param S2 ?.
 #' @param sig.level Significance level (Type I error probability).
 #' @param power Power of test (1 minus Type II error probability).
 #' @param alternative Character string specifying the form of the alternative 
@@ -28,7 +28,7 @@
 #' monotonic transformations.
 #' 
 #' @note Returns \code{Inf} when \code{S1 == S2}.
-#' 
+#' @export
 #' @examples
 #' pwr.logRank(0.3, 0.4)
 pwr.logRank <- function(S1, S2, sig.level = 0.05, power = 0.8, 

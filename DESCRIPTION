@@ -9,14 +9,12 @@ Description: Miscellaneous R functions.
 Depends:
     base
 Imports:
-    caret,
-    corrplot,
-    e1071,
+    dplyr,
     ggplot2,
+    graphics,
+    grDevices,
     plyr,
-    randomForest,
-    reshape2,
-    rpart,
-    tidyr
+    randomForest
 License: GPL (>= 2)
 URL: https://github.com/w108bmg/bmisc
+RoxygenNote: 5.0.1
