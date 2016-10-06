@@ -3,8 +3,8 @@
 #' Calculates the required sample size for a log-rank test using Freedman's
 #' method.
 #' 
-#' @param S1 ?.
-#' @param S2 ?.
+#' @param S.trt ?.
+#' @param S.ctrl ?.
 #' @param sig.level Significance level (Type I error probability).
 #' @param power Power of test (1 minus Type II error probability).
 #' @param alternative Character string specifying the form of the alternative 
@@ -27,21 +27,20 @@
 #' transformed to be exponential and the logrank test remains the same under 
 #' monotonic transformations.
 #' 
-#' @note Returns \code{Inf} when \code{S1 == S2}.
+#' @note Returns \code{Inf} when \code{S.trt == S.ctrl}.
 #' @export
 #' @examples
 #' pwr.logRank(0.3, 0.4)
-pwr.logRank <- function(S1, S2, sig.level = 0.05, power = 0.8, 
+pwr.logRank <- function(S.trt, S.ctrl, sig.level = 0.05, power = 0.8, 
                         alternative = c("two.sided", "less", "greater"),
                         method = c("Freedman")) {
   
-  # FIXME: Relabel S1 and S2 as S.ctrl and S.trt
-  
+  # FIXME: Relabel S.trt and S.ctrl as S.ctrl and S.trt
   alt <- match.arg(alternative)
   za <- if (alt == "two.sided") qnorm(sig.level / 2) else qnorm(sig.level)
   zb <- qnorm(1 - power)
-  haz.ratio <- log(S1) / log(S2)
+  haz.ratio <- log(S.trt) / log(S.ctrl)
   cat("Expected number of events:", 4 * (za + zb) ^ 2 / log(1 / haz.ratio) ^ 2)
   cat("\n")
-  (((haz.ratio + 1) / (haz.ratio - 1)) ^ 2) * (za + zb) ^ 2 / (2 - S1 - S2)
+  (((haz.ratio + 1) / (haz.ratio - 1)) ^ 2) * (za + zb) ^ 2 / (2 - S.trt - S.ctrl)
 }
