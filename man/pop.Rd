@@ -4,7 +4,7 @@
 \alias{pop}
 \alias{pop.default}
 \alias{pop.list}
-\title{Remove Items}
+\title{Remove items}
 \usage{
 pop(x, i = length(x))
 
@@ -32,7 +32,6 @@ z <- as.list(x)
 names(z) <- y
 pop(x)
 pop(y, 2)  # remove the second element
-pop(y, -2)  # remove everythng except the scond element
+pop(y, -2)  # remove everythng except the second element
 for (i in 1:3) print(z <- pop(z))
 }
-

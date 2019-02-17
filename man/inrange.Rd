@@ -2,7 +2,7 @@
 % Please edit documentation in R/base.R
 \name{inrange}
 \alias{inrange}
-\title{Within Range}
+\title{Within range}
 \usage{
 inrange(x, lower, upper, strict = TRUE)
 }
@@ -23,4 +23,3 @@ Check whether a set of values are within a given range.
 inrange(3, 0, 1)
 mean(inrange(rnorm(1e+06), -3, 3))
 }
-

@@ -21,4 +21,3 @@ Returns the ratio of the frequencies for the largest class and the
 \description{
 Calculate the ratio of the most common class to the least common class
 }
-

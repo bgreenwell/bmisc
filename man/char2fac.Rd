@@ -2,22 +2,26 @@
 % Please edit documentation in R/char2fac.R
 \name{char2fac}
 \alias{char2fac}
-\title{Convert Non-numeric Columns to Factors}
+\title{Convert non-numeric columns to factors}
 \usage{
 char2fac(x)
 }
 \arguments{
-\item{x}{A vector.}
+\item{x}{A data frame.}
 }
 \description{
-Converts all non-numeric columns in \code{x} to factors.
+Converts all non-numeric columns in a data frame to factors.
 }
 \examples{
-d <- data.frame(x = 1:3, 
-                y = letters[1:3], 
-                z = c(TRUE, TRUE, FALSE), 
-                stringsAsFactors = FALSE)
-columnTypes(d)
-columnTypes(char2fac(d))
-}
+# Example data frame
+d <- data.frame(
+  x = 1:3, 
+  y = letters[1:3], 
+  z = c(TRUE, TRUE, FALSE), 
+  stringsAsFactors = FALSE
+)
 
+# Check column types with `col_types()`
+col_types(d)
+col_types(char2fac(d))
+}

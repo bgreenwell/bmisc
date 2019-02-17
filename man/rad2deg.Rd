@@ -2,7 +2,7 @@
 % Please edit documentation in R/base.R
 \name{rad2deg}
 \alias{rad2deg}
-\title{Miscelaneous math functions}
+\title{Radians to degrees}
 \usage{
 rad2deg(x)
 }
@@ -15,4 +15,3 @@ A numeric vector.
 \description{
 Convert angles from radians to degrees.
 }
-

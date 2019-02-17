@@ -1,17 +1,20 @@
-#' Import Specific Objects from Packages
+#' Import specific objects from packages
 #'
 #' Import specific objects (e.g., functions) from a packages namespace.
 #'
 #' @param pkg Character string giving the name of the specific R package from
-#'   which the objects will be imported.
+#' which the objects will be imported.
+#' 
 #' @param import Character vector specifying the particular objects to import
-#'   from \code{pkg}.
+#' from \code{pkg}.
+#' 
 #' @param as Optional character vector specifying the names for which
-#'   the imported objects will be assigned to. If missing, then the original
-#'   objects (i.e., \code{objects}) names will be used.
+#' the imported objects will be assigned to. If missing, then the original
+#' objects (i.e., \code{objects}) names will be used.
+#' 
 #' @param envir The environment for which the objects will be loaded into. The
-#'   default is \code{.GlobalEnv} meaning load the objects into the global
-#'   environment.
+#' default is \code{.GlobalEnv} meaning load the objects into the global
+#' environment.
 #'   
 #' @details
 #' Normally, one could implement this via \code{object <- pkg::object}, but that
@@ -20,6 +23,7 @@
 #' error-prone then using \code{pkg::object} each time \code{object} is used.
 #'
 #' @export
+#' 
 #' @examples
 #' # Importing package plyr's entire namespace can cause issues when package
 #' # dplyr is loaded. Using importr can help mitigate these types of issues. The 
@@ -29,7 +33,7 @@
 #' from("plyr", import = c("ddply", "ldply"), as = c(".ddply", ".ldply"))
 #' identical(ddply, .ddply)
 from <- function(pkg, import, as, envir = .GlobalEnv) {
-  if (!(pkg %in% installed.packages()[, "Package"])) {
+  if (!(pkg %in% utils::installed.packages()[, "Package"])) {
     stop(paste("package", pkg, "not found"))
   }
   object.names <- if (missing(as)) import else as
@@ -41,28 +45,29 @@ from <- function(pkg, import, as, envir = .GlobalEnv) {
 }
 
 
-#' Load/Unload Multiple Packages
+#' Load/unload multiple packages
 #'
 #' Load or unload multiple packages at once, rather than having to call
 #' \code{library} or \code{detach} separately for each.
 #'
 #' @rdname load-remove
+#' 
 #' @param pkgs Character vector of package names.
-#' @param ... Additional optional arguments to be passed onto \code{library} or
-#'   \code{detach}.
+#' 
 #' @export
-loadPackages <- function(pkgs, ...) {
+load_packages <- function(pkgs) {
   for (pkg in pkgs) {
-    library(pkg, character.only = TRUE, ...)
+    library(pkg, character.only = TRUE)
   }
 }
 
 
 #' @rdname load-remove
+#' 
 #' @export
-unloadPackages <- function(pkgs, ...) {
+unload_packages <- function(pkgs) {
   pkgs <- paste("package", pkgs, sep = ":")
   for (pkg in pkgs) {
-    detach(pkg, character.only = TRUE, ...)
+    detach(pkg, character.only = TRUE, unload = TRUE)
   }
 }

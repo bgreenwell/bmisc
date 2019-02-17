@@ -2,7 +2,7 @@
 % Please edit documentation in R/base.R
 \name{hypot}
 \alias{hypot}
-\title{Miscelaneous math functions}
+\title{Hypotenuse length}
 \usage{
 hypot(x, y)
 }
@@ -17,4 +17,3 @@ The length of the hypotenuse.
 \description{
 Calculate the length of the hypotenuse of a right-angled triangle.
 }
-

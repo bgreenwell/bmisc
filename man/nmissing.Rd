@@ -12,4 +12,3 @@ nmissing(x)
 \description{
 \code{num_nas} returns the number of \code{NA}s in \code{x}.
 }
-

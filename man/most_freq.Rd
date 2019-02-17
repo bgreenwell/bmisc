@@ -12,4 +12,7 @@ most_freq(x)
 \description{
 \code{most_freq} returns the most frequent value in \code{x}.
 }
-
+\examples{
+most_freq(sample(c("a", "b", "c"), size = 100, replace = TRUE, 
+                 prob = c(0.1, 0.3, 0.6)))
+}

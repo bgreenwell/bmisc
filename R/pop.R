@@ -1,4 +1,4 @@
-#' Remove Items
+#' Remove items
 #' 
 #' \code{pop} is a generic function that will remove the item at the given 
 #' position.

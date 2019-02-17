@@ -14,4 +14,3 @@ inspect(x, n = 8)
 \description{
 Inspect a data frame.
 }
-

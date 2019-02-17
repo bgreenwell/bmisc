@@ -2,7 +2,7 @@
 % Please edit documentation in R/phi.multi.R
 \name{phi.coefficient}
 \alias{phi.coefficient}
-\title{Phi Coefficient}
+\title{Phi coefficient}
 \usage{
 phi.coefficient(x)
 }
@@ -16,4 +16,3 @@ The phi coefficient for the table.
 Computes the phi coefficient measure of association for 2-by-2 contigency 
 tables.
 }
-

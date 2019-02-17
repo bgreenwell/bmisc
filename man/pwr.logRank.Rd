@@ -2,15 +2,16 @@
 % Please edit documentation in R/pwr.R
 \name{pwr.logRank}
 \alias{pwr.logRank}
-\title{Sample Size Calculations for the Log-Rank Test}
+\title{Sample size calculations for the log-rank test}
 \usage{
-pwr.logRank(S1, S2, sig.level = 0.05, power = 0.8,
-  alternative = c("two.sided", "less", "greater"), method = c("Freedman"))
+pwr.logRank(S.trt, S.ctrl, sig.level = 0.05, power = 0.8,
+  alternative = c("two.sided", "less", "greater"),
+  method = c("Freedman"))
 }
 \arguments{
-\item{S1}{?.}
+\item{S.trt}{Numeric specifying the hazard rate for the treatment group.}
 
-\item{S2}{?.}
+\item{S.ctrl}{Numeric specifying the hazard rate for the control group.}
 
 \item{sig.level}{Significance level (Type I error probability).}
 
@@ -43,9 +44,8 @@ transformed to be exponential and the logrank test remains the same under
 monotonic transformations.
 }
 \note{
-Returns \code{Inf} when \code{S1 == S2}.
+Returns \code{Inf} when \code{S.trt == S.ctrl}.
 }
 \examples{
 pwr.logRank(0.3, 0.4)
 }
-

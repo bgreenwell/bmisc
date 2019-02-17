@@ -3,8 +3,9 @@
 #' Extract the data type of each column of a data frame.
 #' 
 #' @param x A data frame or an R object that can be coerced into one.
+#' 
 #' @export
-columnTypes <- function(x, ...) {
+col_types <- function(x) {
   sapply(x, class)
 }
 
@@ -13,8 +14,9 @@ columnTypes <- function(x, ...) {
 #' Summarize a data frame.
 #' 
 #' @param x A data frame or an R object that can be coerced into one.
+#' 
 #' @param ... Additional optional arguments. 
-summarizeData <- function(x, ...) {
+summarize_data <- function(x, ...) {
   
   # If x is not a data frame, then try to coerce it into one
   if (class(x) != "data.frame") {
@@ -25,7 +27,7 @@ summarizeData <- function(x, ...) {
   col.names <- names(x)
   
   # Column types
-  col.types <- columnTypes(x)
+  col.types <- col_types(x)
   
   # Number of unique values
   num.unique <- unlist(lapply(x, function(y) length(unique(y))))

@@ -15,4 +15,6 @@ stripped before the computation proceeds.}
 \description{
 Calculate the sample coefficient of variation for a vector of data.
 }
-
+\examples{
+cv(rnorm(100))
+}

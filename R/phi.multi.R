@@ -28,27 +28,32 @@ createRaterMatrix <- function(x) {
 }
 
 
-#' Phi Coefficient
+#' Phi coefficient
 #' 
 #' Computes the phi coefficient measure of association for 2-by-2 contigency 
 #' tables.
 #' 
 #' @param x A 2-by-2 contigency table.
+#' 
 #' @return The phi coefficient for the table.
+#' 
 #' @export
 phi.coefficient <- function(x) {
   (x[1, 1] * x[2, 2] - x[1, 2] * x[2, 1]) / sqrt(prod(rowSums(x), colSums(x)))
 }
 
 
-#' Phi Coefficient for Multi Label Data
+#' Phi coefficient for multi-label data
 #' 
 #' Computes an averaged phi coefficient measure of association for multi label
-#' data.
+#' data. (Experimental!)
 #' 
 #' @param x Rater 1.
+#' 
 #' @param y Rater 2.
+#' 
 #' @return A list with the following components: \code{avg.phi} and \code{phi}.
+#' 
 #' @export
 phi.multi <- function(x, y) {
   xrm <- createRaterMatrix(x)
@@ -69,6 +74,7 @@ phi.multi <- function(x, y) {
   class(res) <- "phi.multi"
   res
 }
+
 
 #' @keywords internal
 print.phi.multi <- function(x, ...) {

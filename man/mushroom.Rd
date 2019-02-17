@@ -3,7 +3,7 @@
 \docType{data}
 \name{mushroom}
 \alias{mushroom}
-\title{Mushrooms}
+\title{Mushroom edibility}
 \format{A data frame with 8124 rows and 23 variables.}
 \source{
 Knopf, Alfred A. \emph{The Audubon Society Field Guide to North American
@@ -13,4 +13,3 @@ Mushrooms}, G. H. Lincoff (Pres.), 1981.
 Mushrooms described in terms of physical characteristics.
 }
 \keyword{datasets}
-

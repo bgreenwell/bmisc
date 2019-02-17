@@ -2,7 +2,7 @@
 % Please edit documentation in R/phi.multi.R
 \name{phi.multi}
 \alias{phi.multi}
-\title{Phi Coefficient for Multi Label Data}
+\title{Phi coefficient for multi-label data}
 \usage{
 phi.multi(x, y)
 }
@@ -16,6 +16,5 @@ A list with the following components: \code{avg.phi} and \code{phi}.
 }
 \description{
 Computes an averaged phi coefficient measure of association for multi label
-data.
+data. (Experimental!)
 }
-

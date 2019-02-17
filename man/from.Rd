@@ -2,7 +2,7 @@
 % Please edit documentation in R/packages.R
 \name{from}
 \alias{from}
-\title{Import Specific Objects from Packages}
+\title{Import specific objects from packages}
 \usage{
 from(pkg, import, as, envir = .GlobalEnv)
 }
@@ -39,4 +39,3 @@ from("plyr", import = c("ddply", "ldply"))
 from("plyr", import = c("ddply", "ldply"), as = c(".ddply", ".ldply"))
 identical(ddply, .ddply)
 }
-

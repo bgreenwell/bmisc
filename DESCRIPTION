@@ -6,15 +6,13 @@ Date: 2015-10-24
 Author: Brandon M. Greenwell
 Maintainer: Brandon M. Greenwell <greenwell.brandon@gmail.com>
 Description: Miscellaneous R functions.
-Depends:
-    base
 Imports:
     dplyr,
     ggplot2,
     graphics,
     grDevices,
     plyr,
-    randomForest
+    stats
 License: GPL (>= 2)
 URL: https://github.com/w108bmg/bmisc
-RoxygenNote: 5.0.1
+RoxygenNote: 6.1.1

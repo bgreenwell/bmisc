@@ -16,15 +16,13 @@
 #' 
 #' @examples
 #' set.seed(101)  # for reproducibility
-#' df <- sim_ris_data(m = 100, n = 15)
-#' lattice::xyplot(y ~ x, data = df, groups = subject, type = "l", 
-#'                 col = "black", alpha = 0.2)
-sim_ris_data <- function(m = 30, n = 10, mu = c(4.8, 3), 
-                         sigma = c(1.3, 0.7, 0.7)) {
+#' df <- sim_ris(m = 100, n = 15)
+sim_ris <- function(m = 30, n = 10, mu = c(4.8, 3), sigma = c(1.3, 0.7, 0.7)) {
   x <- rep(seq(from = 0, to = 10, length = n), times = m)
   subject <- rep (1:m, each = n)
-  b0 <- rnorm(m, mean = mu[1L], sd = sigma[1L])
-  b1 <- rnorm(m, mean = mu[2L], sd = sigma[2L])
-  y <- rnorm (m * n, mean = b0[subject] + b1[subject] * x, sd = sigma[3L])
+  b0 <- stats::rnorm(m, mean = mu[1L], sd = sigma[1L])
+  b1 <- stats::rnorm(m, mean = mu[2L], sd = sigma[2L])
+  y <- stats::rnorm(m * n, mean = b0[subject] + b1[subject] * x, 
+                    sd = sigma[3L])
   data.frame(x, y, subject)
 }

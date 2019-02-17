@@ -2,7 +2,7 @@
 % Please edit documentation in R/base.R
 \name{deg2rad}
 \alias{deg2rad}
-\title{Miscelaneous math functions}
+\title{Angles to radians}
 \usage{
 deg2rad(x)
 }
@@ -15,4 +15,3 @@ A numeric vector.
 \description{
 Convert angles from degrees to radians.
 }
-

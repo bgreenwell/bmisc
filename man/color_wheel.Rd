@@ -19,4 +19,3 @@ color_wheel("purple")
 color_wheel("springgreen")
 color_wheel("blue", cex = 0.75)
 }
-
